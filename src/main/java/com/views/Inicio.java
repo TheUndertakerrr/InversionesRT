@@ -24,9 +24,9 @@ package com.views;
 
 import java.awt.Color;
 
-public class Principal extends javax.swing.JPanel {
+public class Inicio extends javax.swing.JPanel {
 
-    public Principal() {
+    public Inicio() {
         initComponents();
         initStyles();
     }

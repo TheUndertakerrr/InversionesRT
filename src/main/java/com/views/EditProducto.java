@@ -3,8 +3,8 @@
  * Implementa la funcionalidad de interfaz de usuario para editar y actualizar información de un producto
  * en el sistema.
  * Proporciona campos para modificar el código, el barcode, el nombre, el precio, el stock, la cantidad
- * y la descripción del producto.  
- * Además de eso, incluye validaciones de datos y se conecta a una base de datos para realizar las 
+ * y la descripción del producto.
+ * Además de eso, incluye validaciones de datos y se conecta a una base de datos para realizar las
  * actualizaciones correspondientes.
  * Esta clase también ofrece opciones de limpieza de campos y validación de formatos de barcode.
  * Permite una gestión eficiente y sencilla de la información de los productos."
@@ -30,6 +30,8 @@ package com.views;
 
 import java.awt.Color;
 import com.clase.bd.Conexion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.regex.Matcher;
@@ -128,13 +130,31 @@ public class EditProducto extends javax.swing.JPanel {
         SpinnerNumberModel spinnerModel = (SpinnerNumberModel) spinnerCantidad.getModel();
         spinnerModel.setValue(cantidadValue);
 
-        // Configura el valor seleccionado en los JComboBox
+        // Configura el valor seleccionado en los JComboBox.
         if (stock.equals("Disponible")) {
             comboStock.setSelectedIndex(1);
+            spinnerCantidad.setEnabled(true); // Habilita el JSpinner.
 
         } else if (stock.equals("Agotado")) {
             comboStock.setSelectedIndex(2);
+            spinnerCantidad.setEnabled(false); // Deshabilita el JSpinner.
+            spinnerCantidad.setValue(0);
         }
+        
+        // Agregar ActionListener al JComboBox
+        comboStock.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedStock = comboStock.getSelectedItem().toString();
+                
+                if (selectedStock.equals("Disponible")) {
+                    spinnerCantidad.setEnabled(true); // Habilita el JSpinner
+                    
+                } else if (selectedStock.equals("Agotado")) {
+                    spinnerCantidad.setEnabled(false); // Deshabilita el JSpinner
+                    spinnerCantidad.setValue(0);
+                }
+            }
+        });
     }
 
     /**

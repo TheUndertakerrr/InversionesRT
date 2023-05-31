@@ -1,5 +1,5 @@
 /**
- * DashboardUser.java
+ * DashboardAdmin.java
  * Esta clase representa la interfaz de usuario para el panel de control de administrador de la aplicación.
  * Permite a los administradores acceder a diferentes funcionalidades, como la gestión de usuarios,
  * productos, proveedores, generación de reportes, y proporciona opciones de navegación en el menú.
@@ -42,12 +42,12 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
-public class DashboardUser extends javax.swing.JFrame {
+public class Dashboard extends javax.swing.JFrame {
 
     String user, nombre, apellido;
-    public static int sesionUsuario;
+    public static int sesionAdmin;
 
-    public DashboardUser() {
+    public Dashboard() {
         initComponents();
         initStyles();
         setDate();
@@ -60,8 +60,8 @@ public class DashboardUser extends javax.swing.JFrame {
     // Busca el nombre de usuario y su apellido en MySQL y lo muestra en el Dashboard.
     private void nameUser() {
         user = Login.user;
-        sesionUsuario = 1;
-        setTitle("Acceso de Usuario");
+        sesionAdmin = 1;
+        setTitle("Acceso de Administrador");
 
         try {
             Connection cn = Conexion.conectar();
@@ -77,8 +77,9 @@ public class DashboardUser extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            System.err.println("Error en la conexión desde la interfaz Usuario");
+            System.err.println("Error en la conexión desde la interfaz Administrador");
         }
+
     }
 
     // Estilos que establecen los estilos de tipografía y color de los títulos del panel menú y header.
@@ -102,10 +103,10 @@ public class DashboardUser extends javax.swing.JFrame {
     }
 
     private void initContent() {
-        ShowJPanel(new Principal());
+        ShowJPanel(new Inicio());
     }
 
-    private static void ShowJPanel(JPanel p) {
+    public static void ShowJPanel(JPanel p) {
         p.setSize(750, 490);
         p.setLocation(0, 0);
 
@@ -129,7 +130,7 @@ public class DashboardUser extends javax.swing.JFrame {
         nombreEmpresa = new javax.swing.JLabel();
         separadorEmpresa = new javax.swing.JSeparator();
         separadorEmpresaUltimo = new javax.swing.JSeparator();
-        botonPrincipal = new javax.swing.JButton();
+        botonInicio = new javax.swing.JButton();
         botonUsuario = new javax.swing.JButton();
         botonProducto = new javax.swing.JButton();
         botonProveedor = new javax.swing.JButton();
@@ -142,10 +143,11 @@ public class DashboardUser extends javax.swing.JFrame {
         contenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1020, 670));
+        setMinimumSize(new java.awt.Dimension(1020, 690));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setForeground(new java.awt.Color(0, 0, 0));
+        background.setMinimumSize(new java.awt.Dimension(1020, 640));
 
         menu.setBackground(new java.awt.Color(90, 58, 201));
         menu.setForeground(new java.awt.Color(0, 0, 0));
@@ -161,19 +163,19 @@ public class DashboardUser extends javax.swing.JFrame {
         separadorEmpresaUltimo.setBackground(new java.awt.Color(0, 0, 0));
         separadorEmpresaUltimo.setForeground(new java.awt.Color(255, 255, 255));
 
-        botonPrincipal.setBackground(new java.awt.Color(141, 114, 231));
-        botonPrincipal.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        botonPrincipal.setForeground(new java.awt.Color(255, 255, 255));
-        botonPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/casa.png"))); // NOI18N
-        botonPrincipal.setText("Principal");
-        botonPrincipal.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 15, 1, 1, new java.awt.Color(0, 0, 0)));
-        botonPrincipal.setBorderPainted(false);
-        botonPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        botonPrincipal.setIconTextGap(15);
-        botonPrincipal.addActionListener(new java.awt.event.ActionListener() {
+        botonInicio.setBackground(new java.awt.Color(141, 114, 231));
+        botonInicio.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        botonInicio.setForeground(new java.awt.Color(255, 255, 255));
+        botonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/casa.png"))); // NOI18N
+        botonInicio.setText("Inicio");
+        botonInicio.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 15, 1, 1, new java.awt.Color(0, 0, 0)));
+        botonInicio.setBorderPainted(false);
+        botonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonInicio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botonInicio.setIconTextGap(15);
+        botonInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPrincipalActionPerformed(evt);
+                botonInicioActionPerformed(evt);
             }
         });
 
@@ -185,9 +187,13 @@ public class DashboardUser extends javax.swing.JFrame {
         botonUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 15, 1, 1, new java.awt.Color(0, 0, 0)));
         botonUsuario.setBorderPainted(false);
         botonUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonUsuario.setEnabled(false);
         botonUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         botonUsuario.setIconTextGap(15);
+        botonUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonUsuarioActionPerformed(evt);
+            }
+        });
 
         botonProducto.setBackground(new java.awt.Color(141, 114, 231));
         botonProducto.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
@@ -274,7 +280,7 @@ public class DashboardUser extends javax.swing.JFrame {
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(nombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(botonPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(botonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(botonUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(botonProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(botonProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,7 +303,7 @@ public class DashboardUser extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(separadorEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
                 .addGap(50, 50, 50)
-                .addComponent(botonPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(botonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(botonUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
@@ -391,6 +397,14 @@ public class DashboardUser extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuarioActionPerformed
+        ShowJPanel(new Usuario());
+    }//GEN-LAST:event_botonUsuarioActionPerformed
+
+    private void botonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioActionPerformed
+        ShowJPanel(new Inicio());
+    }//GEN-LAST:event_botonInicioActionPerformed
+
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // Cambia el idioma de los botones del cuadro de diálogo JOptionPane a español
         UIManager.put("OptionPane.yesButtonText", "Sí");
@@ -401,14 +415,10 @@ public class DashboardUser extends javax.swing.JFrame {
 
         if (opcion == JOptionPane.YES_OPTION) {
             // Cerrar sesión y volver a la ventana de inicio de sesión (Login).
-            dispose(); // Cierra la ventana actual (DashboardUser).
+            dispose(); // Cierra la ventana actual (Dashboard).
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_botonSalirActionPerformed
-
-    private void botonPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrincipalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonPrincipalActionPerformed
 
     private void botonProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductoActionPerformed
         ShowJPanel(new Producto());
@@ -425,6 +435,10 @@ public class DashboardUser extends javax.swing.JFrame {
     private void botonAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAcercaDeActionPerformed
         ShowJPanel(new Desarrollador());
     }//GEN-LAST:event_botonAcercaDeActionPerformed
+
+    public void setBotonUsuarioEnabled(boolean enabled) {
+        botonUsuario.setEnabled(enabled);
+    }
 
     /**
      * @param args the command line arguments
@@ -443,7 +457,7 @@ public class DashboardUser extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DashboardUser().setVisible(true);
+                new Dashboard().setVisible(true);
             }
         });
     }
@@ -451,7 +465,7 @@ public class DashboardUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAcercaDe;
-    private javax.swing.JButton botonPrincipal;
+    private javax.swing.JButton botonInicio;
     private javax.swing.JButton botonProducto;
     private javax.swing.JButton botonProveedor;
     private javax.swing.JButton botonReporte;
@@ -466,4 +480,8 @@ public class DashboardUser extends javax.swing.JFrame {
     private javax.swing.JLabel tituloBienvenido;
     private javax.swing.JLabel tituloDate;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrarPanel(UpUsuario upUsuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

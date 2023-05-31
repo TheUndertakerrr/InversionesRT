@@ -24,7 +24,7 @@ package com.views;
 
 import java.sql.*;
 import com.clase.bd.Conexion;
-import com.menu.DashboardAdmin;
+import com.menu.Dashboard;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -339,7 +339,7 @@ public class Producto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
-        DashboardAdmin.ShowJPanel(new UpProducto());
+        Dashboard.ShowJPanel(new UpProducto());
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
@@ -433,8 +433,8 @@ public class Producto extends javax.swing.JPanel {
                     editProductoPanel.nombreProducto();
                     editProductoPanel.setDatos(codigo, barcode, nombre, precio, stock, cantidad, descripcion);
 
-                    // Mostrar el JPanel "EditProducto" en el DashboardAdmin
-                    DashboardAdmin.ShowJPanel(editProductoPanel);
+                    // Mostrar el JPanel "EditProducto" en el Dashboard
+                    Dashboard.ShowJPanel(editProductoPanel);
                 }
 
                 cn.close();

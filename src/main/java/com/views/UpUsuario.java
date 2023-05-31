@@ -338,13 +338,6 @@ public class UpUsuario extends javax.swing.JPanel {
             return;
         }
 
-        // Verificar longitud mínima y máxima de la contraseña
-        if (contraseña.length() < 8 || contraseña.length() > 20) {
-            JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 8 y 20 caracteres.",
-                    "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
         //Validación de los ComboBox para que recoja el String.
         String estatus = null;
         switch (estatus_cmb) {
@@ -406,33 +399,49 @@ public class UpUsuario extends javax.swing.JPanel {
 
             List<String> existentValues = new ArrayList<>();
 
+            int counter = 1;
             while (rs.next()) {
                 if (rs.getString("cedula").equals(cedula)) {
-                    existentValues.add("La cédula de identidad se encuentra registrada.");
+                    existentValues.add(counter++ + ". La cédula de identidad se encuentra registrada.");
                 }
+
                 if (rs.getString("username").equals(username)) {
-                    existentValues.add("El username no se encuentra disponible.");
+                    existentValues.add(counter++ + ". El username no se encuentra disponible.");
                 }
+
                 if (rs.getString("correo").equals(correo)) {
-                    existentValues.add("La dirección de correo electrónico ya está siendo usada.");
+                    existentValues.add(counter++ + ". La dirección de correo electrónico ya está siendo usada.");
                 }
+
                 if (rs.getString("telefono").equals(telefono)) {
-                    existentValues.add("El número de teléfono se encuentra en uso.");
+                    existentValues.add(counter++ + ". El número de teléfono se encuentra en uso.");
                 }
             }
 
             if (!existentValues.isEmpty()) {
-                String errorMessage = String.join("\n", existentValues);
+                String errorMessage = String.join("\n\n", existentValues);
                 JOptionPane.showMessageDialog(null, errorMessage, "Información", JOptionPane.INFORMATION_MESSAGE);
                 cn.close();
                 return;
             }
 
             cn.close();
+
         } catch (SQLException e) {
             System.err.println("Error en validar la cédula, username, correo y teléfono." + e);
             JOptionPane.showMessageDialog(null, "¡Error al comparar la cédula, username, correo y teléfono! Póngase en "
                     + "contacto con el Administrador.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Validación de longitud y caracteres especiales en la contraseña
+        Pattern patternContraseña = Pattern.compile("^(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]+$");
+        Matcher matcherContraseña = patternContraseña.matcher(contraseña);
+
+        if (contraseña.length() < 8 || contraseña.length() > 20 || !matcherContraseña.matches()) {
+            JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 8 y 20 caracteres.\n"
+                    + "\nEsta debe contener al menos un número y un carácter especial.", "Advertencia", 
+                    JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
         // Validación de formato de correo electrónico
@@ -451,16 +460,6 @@ public class UpUsuario extends javax.swing.JPanel {
 
         if (!matcherTelefono.matches()) {
             JOptionPane.showMessageDialog(null, "El formato del número de teléfono no es válido.",
-                    "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // Verificar caracteres especiales y números en la contraseña
-        Pattern patternContraseña = Pattern.compile("^(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]+$");
-        Matcher matcherContraseña = patternContraseña.matcher(contraseña);
-
-        if (!matcherContraseña.matches()) {
-            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos un número y un carácter especial.",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }

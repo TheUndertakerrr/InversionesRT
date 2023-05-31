@@ -24,7 +24,7 @@ package com.views;
 
 import java.sql.*;
 import com.clase.bd.Conexion;
-import com.menu.DashboardAdmin;
+import com.menu.Dashboard;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -347,7 +347,7 @@ public class Usuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
-        DashboardAdmin.ShowJPanel(new UpUsuario());
+        Dashboard.ShowJPanel(new UpUsuario());
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
@@ -443,8 +443,8 @@ public class Usuario extends javax.swing.JPanel {
                     editUsuarioPanel.nombreUsuario();
                     editUsuarioPanel.setDatos(cedula, nombre, apellido, username, contraseña, correo, telefono, estatus, permisos);
 
-                    // Mostrar el JPanel "EditUsuario" en el DashboardAdmin
-                    DashboardAdmin.ShowJPanel(editUsuarioPanel);
+                    // Mostrar el JPanel "EditUsuario" en el Dashboard
+                    Dashboard.ShowJPanel(editUsuarioPanel);
                 }
 
                 cn.close();

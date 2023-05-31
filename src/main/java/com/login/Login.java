@@ -2,8 +2,8 @@
  * Login.java
  * Esta clase proporciona la interfaz de inicio de sesión para los usuarios del sistema Inversiones R.T.
  * Permite a los usuarios ingresar su nombre de usuario y contraseña, autenticar sus credenciales y
- * acceder al sistema. 
- * Además, verifica el estado y nivel de acceso del usuario y redirige al panel de control 
+ * acceder al sistema.
+ * Además, verifica el estado y nivel de acceso del usuario y redirige al panel de control
  * correspondiente (Dashboard) según su nivel de permisos.
  *
  * Este archivo es parte de InversionesRT.
@@ -30,8 +30,7 @@ import java.util.Collections;
 import javax.swing.UIManager;
 import java.sql.*;
 import com.clase.bd.Conexion;
-import com.menu.DashboardAdmin;
-import com.menu.DashboardUser;
+import com.menu.Dashboard;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import java.awt.event.KeyEvent;
@@ -236,11 +235,16 @@ public class Login extends javax.swing.JFrame {
                         if (estatus.equalsIgnoreCase("Activo")) {
                             if (tipo_nivel.equalsIgnoreCase("Administrador")) {
                                 dispose();
-                                new DashboardAdmin().setVisible(true);
-
+                                Dashboard dashboardAdmin = new Dashboard();
+                                dashboardAdmin.setTitle("Acceso de Administrador");
+                                dashboardAdmin.setVisible(true);
+                                
                             } else if (tipo_nivel.equalsIgnoreCase("Usuario")) {
                                 dispose();
-                                new DashboardUser().setVisible(true);
+                                Dashboard dashboardUser = new Dashboard();
+                                dashboardUser.setTitle("Acceso de Usuario");
+                                dashboardUser.setBotonUsuarioEnabled(false); // Desactivar el botón "Usuario".
+                                dashboardUser.setVisible(true);
                             }
 
                         } else {

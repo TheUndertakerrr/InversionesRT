@@ -25,6 +25,8 @@ package com.views;
 
 import java.awt.Color;
 import com.clase.bd.Conexion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.Connection;
@@ -41,6 +43,7 @@ public class UpProducto extends javax.swing.JPanel {
         initStyles();
         propertyTextArea();
         propertySpinner();
+        disableSpinner();
     }
 
     private void initStyles() {
@@ -118,7 +121,22 @@ public class UpProducto extends javax.swing.JPanel {
         snp.setMinimum(0);
         spinnerCantidad.setModel(snp);
     }
-
+    
+    // Si la opción del comboBox es "Agotado", el spinner se desactiva.
+    private void disableSpinner() {
+        comboStock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedOption = (String) comboStock.getSelectedItem();
+                boolean isAgotado = selectedOption.equals("Agotado");
+                spinnerCantidad.setEnabled(!isAgotado);
+                if (isAgotado) {
+                    spinnerCantidad.setValue(0);
+                }
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

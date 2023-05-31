@@ -24,7 +24,7 @@ package com.views;
 
 import java.sql.*;
 import com.clase.bd.Conexion;
-import com.menu.DashboardAdmin;
+import com.menu.Dashboard;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -326,7 +326,7 @@ public class Proveedor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
-        DashboardAdmin.ShowJPanel(new UpProveedor());
+        Dashboard.ShowJPanel(new UpProveedor());
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
@@ -409,8 +409,8 @@ public class Proveedor extends javax.swing.JPanel {
             editProveedorPanel.nombreProveedor();
             editProveedorPanel.setDatos(codigo, nombre, apellido, direccion, telefono);
 
-            // Mostrar el JPanel "EditProducto" en el DashboardAdmin
-            DashboardAdmin.ShowJPanel(editProveedorPanel);
+            // Mostrar el JPanel "EditProducto" en el Dashboard
+            Dashboard.ShowJPanel(editProveedorPanel);
 
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione un proveedor de la tabla.", "Advertencia",
